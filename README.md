@@ -1,9 +1,29 @@
-# Практична робота №3: NestJS + Docker (Розширене керування)
+## Student
+- Name: Лендєл Ерік
+- Group: 232.2
 
-## Вправа 2: Статус контейнерів
+## Практичне заняття №3 — CRUD REST API для MiniShop
 
-```text
-NAME             IMAGE                  STATUS           PORTS
-app-1            nestjs-docker-app      Up 10 min        0.0.0.0:3000->3000/tcp
-postgres-1       postgres:16-alpine     Up 10 min (ok)   0.0.0.0:5432->5432/tcp
-redis-1          redis:7-alpine         Up 10 min (ok)   0.0.0.0:6379->6379/tcp
+### Як запустити
+1. Створити .env (cp .env.example .env)
+2. Запустити: docker compose up --build -d
+
+### API Маршрути
+- GET /api/categories — Список категорій
+- POST /api/categories — Створити категорію
+- GET /api/products — Список продуктів
+- POST /api/products — Створити продукт
+- PATCH /api/products/:id — Оновити
+- DELETE /api/products/:id — Видалити
+
+### База даних
+Міграції успішно застосовано.
+Таблиці: categories, products, migrations.
+
+### Приклад успішного запиту
+{
+  "id": 2,
+  "name": "iPhone 15",
+  "price": 999.99,
+  "isActive": true
+}
