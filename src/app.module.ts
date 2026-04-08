@@ -1,19 +1,17 @@
-import { AddIsActiveToProducts1775669171373 } from './migrations/1775669171373-AddIsActiveToProducts';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CacheModule } from '@nestjs/cache-manager';
 import { redisStore } from 'cache-manager-redis-yet';
 
-// Імпорти сутностей (для налаштування TypeORM)
 import { Category } from './categories/category.entity';
 import { Product } from './products/product.entity';
-
-// Імпорти функціональних модулів
 import { CategoriesModule } from './categories/categories.module';
-import { ProductsModule } from './products/products.module'; // Твій новий модуль
+import { ProductsModule } from './products/products.module';
 
 import { CreateTables1700000000001 } from './migrations/1700000000001-CreateTables';
+import { AddIsActiveToProducts1775669171373 } from './migrations/1775669171373-AddIsActiveToProducts';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -30,7 +28,8 @@ import { AppService } from './app.service';
       entities: [Category, Product],
       synchronize: false,
       migrationsRun: true,
-      migrations: [CreateTables1700000000001,
+      migrations: [
+        CreateTables1700000000001,
         AddIsActiveToProducts1775669171373
       ],
     }),
@@ -46,7 +45,7 @@ import { AppService } from './app.service';
       }),
     }),
     CategoriesModule,
-    ProductsModule, // <--- Додано тут
+    ProductsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

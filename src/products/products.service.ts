@@ -19,24 +19,33 @@ export class ProductsService {
       where: { id },
       relations: ['category'],
     });
-    if (!product) throw new NotFoundException(`Product #${id} not found`);
+    if (!product) {
+      throw new NotFoundException(`Product #${id} not found`);
+    }
     return product;
   }
 
   async create(data: any): Promise<Product> {
+    // Створюємо екземпляр через об'єкт, щоб уникнути плутанини з масивами
     const product = this.productRepo.create({
-      ...data,
+      name: data.name,
+      description: data.description,
+      price: data.price,
+      stock: data.stock || 0,
       category: data.categoryId ? { id: data.categoryId } : null,
-    });
+    } as Product); 
+    
     return this.productRepo.save(product);
   }
 
   async update(id: number, data: any): Promise<Product> {
     const product = await this.findOne(id);
+    
     if (data.categoryId) {
       product.category = { id: data.categoryId } as any;
       delete data.categoryId;
     }
+    
     Object.assign(product, data);
     return this.productRepo.save(product);
   }
